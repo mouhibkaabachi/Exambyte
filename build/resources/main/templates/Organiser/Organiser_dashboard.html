@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizer Dashboard</title>
+  <link rel="stylesheet" href="/StyleSheet.css">
+</head>
+<body>
+<div class="navbar">
+  <a href="/Organiser_dashboard">Organiser Dashboard</a>
+  <a href="/create_exams">Create Exams</a>
+  <a href ="/logout">Logout</a>
+</div>
+<div class="content">
+  <h1>Welcome to Your Dashboard, <span th:text="${name}"> </span> </h1>
+</div>
+
+<div class="cards-container">
+  <div class="card">
+    <h2>Create Exams</h2>
+    <p>Create and modify Exams.</p>
+    <a th:href="@{/Organiser/create_exams/{organiserID}(organiserID=${organiserID})}" class="button">Create Exams</a>
+  </div>
+
+  <div class="card">
+    <h2>Exams in Progress</h2>
+    <ul>
+      <li th:each="exam : ${examsInProgress}">
+        <a th:href="@{/Organiser/ModifyExams/{examID}/{organiserID}(examID=${exam.id}, organiserID=${organiserID})}">
+          <span th:text="${exam.name}"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Exams Completed</h2>
+    <ul>
+      <li th:each="exam : ${submittedExams}">
+        <span th:text="${exam.name}"></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Logout</h2>
+    <p>Log out from your account securely.</p>
+    <a href="/logout" class="button">Logout</a>
+  </div>
+
+</div>
+
+
+</body>
+</html>

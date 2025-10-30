@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create_Exams</title>
+    <link rel="stylesheet" href="/StyleSheet.css">
+</head>
+<body>
+<h1>Fill in Questions</h1>
+<form  th:action="@{/Organiser/saveExam/{organiserID}(organiserID=${user.getId()})}" method="post" th:object="${exam}">
+    <p>Exam Name: <span th:text="*{name}"></span></p>
+    <p>Overall Score: <span th:text="*{overallScore}"></span></p>
+
+
+    <div th:each="question,iter: ${exam.questions}">
+
+    <label>Question:
+    <input type="text" th:field="*{questions[${iter.index}].questionText}" required>
+    </label>
+        <label>score:
+            <input type="number" th:field="*{questions[${iter.index}].points}" required>
+        </label>
+       <div th:if="${question instanceof T(com.example.propra2proj.domain.model.examagg.MultipleChoiceQuestion) }">
+           <div th:each="optIter :${#numbers.sequence(0,4)}">
+               <label>
+                   <input type="text" th:field="|questions[${iter.index}].options[${optIter}]|" required>
+               </label>
+               <label> Correct index:
+                   <input type="number" th:field="|questions[${iter.index}].correctOptionIndex|" min="0" max="3" required>
+               </label>
+           </div>
+       </div>
+    </div>
+
+    <button type="submit" name="submitExam" value="true">Submit Exam</button>
+    <button type="submit" name="saveProgress" value="true">Save Progress</button>
+
+</form>
+
+</body>
+
+
+
+</html>

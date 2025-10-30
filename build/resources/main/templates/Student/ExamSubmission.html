@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="">
+<head>
+    <title>Exam Questions</title>
+
+</head>
+<body>
+<div class="navbar">
+    <a href="/Student_dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<form th:action="@{/submitExam}" th:text="${exam.id}" method="post">
+    <input type="hidden" th:field="${exam.id}" />
+
+    <h1 th:text="*{name}">Exam Name</h1>
+
+    <div th:each=" question : ${exam.questions}">
+
+
+        <div th:if="${question instanceof T(com.example.propra2proj.domain.model.examagg.MultipleChoiceQuestion)}">
+            <h2>Multiple Choice</h2>
+            <h3 th:text="${question.questionText}"></h3>
+            <ul>
+                <li th:each="mcq : ${multipleChoiceQuestions}">
+                    <span th:text="${mcq.questionText}"></span>
+                    <ul>
+                        <li th:each="option : ${mcq.options}">
+                            <label>
+                                <input type="radio" th:name="'mcAnswers[' + ${mcq.id} + ']'" th:value="${option}" />
+                            </label>
+                            <span th:text="${option}"></span>
+                        </li></ul>
+                </li>
+            </ul>
+        </div>
+
+
+        <div th:if="${question instanceof T(com.example.propra2proj.domain.model.examagg.TextQuestion)}" class="text-question">
+            <h2>Text Question</h2>
+            <h3 th:text="${question.questionText}"></h3>
+            <label>
+                <textarea th:field="'studentsAnswer[' + ${question.id} + ']'" rows="3" cols="50"></textarea>
+            </label>
+        </div>
+    </div>
+
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

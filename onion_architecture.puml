@@ -1,0 +1,32 @@
+@startuml
+
+package controller{
+class CorrectorController
+class OrganiserController
+class StudentController
+class userController
+}
+
+package domain{
+
+package model{
+package examagg{
+class Exam
+class Question
+class MultipleChoiceQuestion
+class TextQuestion
+}
+package useragg{
+class User
+class Corrector
+class Organiser
+class Student
+enum Role
+}
+class ExamResult
+class Submission
+}
+}
+
+
+@enduml

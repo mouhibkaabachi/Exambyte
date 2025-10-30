@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Exam</title>
+    <link rel="stylesheet" href="/StyleSheet.css">
+</head>
+<body>
+
+<h1>Modify Exam: <span th:text="${exam.name}"></span></h1>
+
+<form method="post" th:action="@{/Organiser/saveModifiedExam/{examId}/{organiserId}(examId=${exam.getId()},organiserId=${userId})}" >
+
+    <label for="name">Exam Name</label>
+    <input type="text" id="name" th:field="*{exam.name}" required />
+
+    <label for="overallScore">Overall Score</label>
+    <input type="number" id="overallScore" th:field="*{exam.overallScore}" required />
+
+    <!-- Text Questions -->
+    <div th:each="question, iter : ${textQuestions}">
+        <h3>Text Question #{iter.index + 1}</h3>
+
+        <label for="questionText_${iter.index}">Question</label>
+        <input type="text" id="questionText_${iter.index}" th:field="*{textQuestions[__${iter.index}__].questionText}" required />
+
+        <label for="points_${iter.index}">Points</label>
+        <input type="number" id="points_${iter.index}" th:field="*{textQuestions[__${iter.index}__].points}" required />
+    </div>
+
+    <!-- Multiple Choice Questions -->
+    <div th:each="question, iter : ${mcQuestions}">
+        <h3>Multiple Choice Question #{iter.index + 1}</h3>
+
+        <label for="questionTextMC_${iter.index}">Question</label>
+        <input type="text" id="questionTextMC_${iter.index}" th:field="*{mcQuestions[__${iter.index}__].questionText}" required />
+
+        <label for="pointsMC_${iter.index}">Points</label>
+        <input type="number" id="pointsMC_${iter.index}" th:field="*{mcQuestions[__${iter.index}__].points}" required />
+
+        <div th:each="optIter : ${#numbers.sequence(0, 3)}">
+            <label for="optionMC_${iter.index}_${optIter}">Option <span th:text="${optIter + 1}"></span>:</label>
+            <input type="text" id="optionMC_${iter.index}_${optIter}" th:field="*{mcQuestions[__${iter.index}__].options[__${optIter}__]}" required />
+        </div>
+
+        <label for="correctOptionIndexMC_${iter.index}">Correct Option Index</label>
+        <input type="number" id="correctOptionIndexMC_${iter.index}" th:field="*{mcQuestions[__${iter.index}__].correctOptionIndex}" min="0" max="3" required />
+    </div>
+
+    <button type="submit" name="saveProgress" value="true">Save Progress</button>
+    <button type="submit" name="submitExam" value="true">Submit Exam</button>
+
+</form>
+
+
+
+
+</body>
+
+
+
+
+

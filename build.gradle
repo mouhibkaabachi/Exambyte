@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    // Spring Boot Starters
+    implementation 'org.springframework.boot:spring-boot-starter-web'           // Web applications
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'     // Thymeleaf templating
+    implementation 'org.springframework.boot:spring-boot-starter-security'      // Security
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth2 Client
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server' // OAuth2 Authorization Server
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'      // JPA for database interactions
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'     // JDBC support
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'      // JDBC core functionality
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:postgresql'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.postgresql:postgresql'
+
+
+    // Thymeleaf Extras
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'      // Thymeleaf Spring Security integration
+
+    // Database Drivers
+    implementation "org.flywaydb:flyway-database-postgresql" // PostgreSQL database
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.postgresql:postgresql' // H2 database (for development/testing)
+
+    // Flyway
+    implementation 'org.flywaydb:flyway-core'     // Database migrations
+
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'      // Core testing library
+    testImplementation 'org.springframework.security:spring-security-test'      // Security testing utilities
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'                // JUnit platform launcher
+    testImplementation 'com.tngtech.archunit:archunit-junit5:1.0.1'
+
+
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corrector Dashboard</title>
+  <link rel="stylesheet" href="/StyleSheet.css">
+</head>
+<body>
+<div class="navbar">
+  <a href="/Corrector/Corrector_dashboard">New Exams</a>
+  <a href="/logout">Logout</a>
+</div>
+
+<div class="content">
+  <h1>Welcome to Your Dashboard, <span th:text="${name}">Corrector</span></h1>
+</div>
+
+<div class="cards-container">
+  <div class="card">
+    <h3>Corrected Exams</h3>
+    <ul>
+      <li th:each="submission : ${CorrectedExams}">
+        <a th:href="@{/corrector/CorrectionModification/{examResultId}(examResultId=${submission.id})}"
+           th:text="'Exam ' + ${submission.id}"></a>
+      </li>
+      <li th:if="${#lists.isEmpty(CorrectedExams)}">No exams have been corrected yet.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Exams to be Corrected</h3>
+    <ul>
+      <li th:each="submission :${NotCorrectedExams}">
+        <a th:href="@{/corrector/ExamCorrection/{submissionId}(submissionId=${submission.id})}"
+        th:text="'Exam '+ ${submission.id}"></a>
+      </li>
+      <li th:if="${#lists.isEmpty(NotCorrectedExams)}">No exams have been submitted yet.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Logout</h2>
+    <p>Log out securely from your account.</p>
+    <a href="/logout" class="button">Logout</a>
+  </div>
+</div>
+
+</body>
+</html>

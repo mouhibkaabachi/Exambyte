@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/StyleSheet.css">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/student_dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="dashboard-container">
+    <h1>Welcome,
+        <span th:text="${name}">Student Name</span>
+        (ID: <span th:text="${studentId}">12345</span>)
+    </h1>
+
+    <div class="cards-container">
+        <div class="card">
+            <h2>Available Exams</h2>
+            <p>Explore and participate in ongoing exams</p>
+
+            <ul>
+                <li th:each="exam : ${exams}" th:unless="${exam.completed}">
+                    <span th:text="${exam.name}"></span>
+                    <a th:href="@{/ExamSubmission/{examID}(examID=${exam.id})}" class="button">Take Exam</a>
+                </li>
+            </ul>
+
+            <p th:if="${#lists.isEmpty(exams)}">
+                Currently, there are no exams available for participation. Please check back later.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Previous Exam Results</h2>
+            <p>Check your previous exam scores and performance.</p>
+            <a th:href="@{/ExamResults}" class="button">Click here</a>
+        </div>
+
+        <div class="card">
+            <h2>Logout</h2>
+            <p>Securely log out of your account.</p>
+            <a th:href="@{/logout}" class="button">Logout</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Exams page</title>
+    <link rel="stylesheet" href="/StyleSheet.css">
+</head>
+<body>
+<div class="content" >
+    <h1>Here you can create a test, <span th:text="*{name}"> </span></h1>
+</div>
+
+<form th:action="@{/Organiser/create_exams/{userId}(userId=${userId})}" method="post" th:object="${exam}">
+
+    <label for="Name">Name of the Exam: </label>
+    <input type="text" id="Name" name="ExamName" min="0" required th:field="*{name}">
+
+    <label for="textQuestions">Number of Text Questions:</label>
+    <input type="number" id="textQuestions" name="numberOfTextQuestions" min="0" required >
+
+    <label for="mcQuestions">Number of Multiple choice questions:</label>
+    <input type="number" id="mcQuestions" name="numberOfMultipleChoiceQuestions" min="0" required>
+
+    <label for="score">Total Score:</label>
+    <input type="number" id="score" th:field="*{overallScore}" min="1" required>
+
+    <button type="submit">Next</button>
+
+</form>
+
+</body>
+</html>

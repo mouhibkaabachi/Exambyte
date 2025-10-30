@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction Modification</title>
+    <link rel="stylesheet" href="/StyleSheet.css">
+</head>
+<body>
+<div class="content">
+    <h1>Correcting the exam of, <span th:text="${name}"> </span> </h1>
+    <input type="hidden" name="submissionId" th:value="${submissionId}" />
+</div>
+<form action="SubmissionModification" method="post" th:object="${submission}">
+    <div th:each="question, iter : ${questions}">
+        <p><strong>Question:</strong> <span th:text="${question.questionText}"></span></p>
+
+        <p><strong>Student's Answer:</strong>
+            <span th:text="${answers[question.id] ?: 'No Answer'}"></span>
+        </p>
+
+        <p><strong>Total Points:</strong> <span th:text="${question.points}"></span></p>
+
+        <label>Accorded Points:
+            <input type="number" class="input-field"
+                   th:name="|accordedPoints[${question.id}]|"
+                   th:value="${question.accordedPoints}"
+                   placeholder="Question score">
+        </label>
+    </div>
+
+    <button type="submit">Submit Corrections</button>
+</form>
+
+</body>
+</html>
